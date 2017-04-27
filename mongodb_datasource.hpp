@@ -45,24 +45,27 @@
 #include <vector>
 #include <string>
 
-#include "connection_manager.hpp"
+// #include "connection_manager.hpp"
+#include "connection.hpp"
 
 class mongodb_datasource : public mapnik::datasource {
 
 private:
-    	mapnik::layer_descriptor desc_;
+	mapnik::layer_descriptor desc_;
     	mapnik::datasource::datasource_t type_;
     	
-        ConnectionCreator<Connection> creator_;
+      // ConnectionCreator<Connection> creator_;
+
+	Connection *connObj;
     	
 
 // std::shared_ptr< Pool<Connection, ConnectionCreator> > pool;
 
-        bool persist_connection_;
+      bool persist_connection_;
     	mutable bool extent_initialized_;
     	mutable mapnik::box2d<double> extent_;
-	    const std::string queryOptions_; 	
-    // db.collectionName.find({}) .queryOptions should be "{}" or "{name:value, field1： value2}"
+	const std::string queryOptions_; 	
+    	// db.collectionName.find({}) .queryOptions should be "{}" or "{name:value, field1： value2}"
       // const std::string fieldConfig_;  	
       // db.collectionName.find(queryOptions, {}) .filedConfig_ should be "{}" or "{field1:0, field2： 1,  field3： 0}"
 
