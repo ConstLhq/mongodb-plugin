@@ -59,7 +59,10 @@ currenty(0)
    pszBitArrays = new unsigned char[size_bytes];
    assert(pszBitArrays);
    memset(pszBitArrays, 0, size_bytes);
-   count_bit_drawn = 0;     
+   count_bit_drawn = 0;
+
+ tr_=new transcoder("utf8");
+
 }
 
 
@@ -71,11 +74,12 @@ feature_id_(0),
 currentx(0),
 currenty(0)
 {    
-    	// grid = std::set<int>();
-	pszBitArrays = NULL;
-	count_bit_drawn = 0; 
-	
-   box = mapnik::box2d<double>(0,0,0,0);
+      // grid = std::set<int>();
+  pszBitArrays = NULL;
+  count_bit_drawn = 0; 
+  box = mapnik::box2d<double>(0,0,0,0);
+  
+  tr_=new transcoder("utf8");
 }
 
 mongodb_featureset::~mongodb_featureset() {
@@ -250,10 +254,9 @@ mapnik::feature_ptr mongodb_featureset::next() {
                     
                     switch (e.type()) {
                     
-                    // case bsoncxx::type::k_utf8:
-                    //     feature->put_new(name, e.get_utf8().value.to_string());
-                    //     break;
-
+                    case bsoncxx::type::k_utf8:
+                        feature->put_new<mapnik::value_unicode_string>(name, e.get_utf8().value.to_string());
+                        break;
                     case bsoncxx::type::k_double:
                         feature->put_new(name, e.get_double().value);
                         break;

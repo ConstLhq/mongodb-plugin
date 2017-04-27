@@ -24,6 +24,7 @@ private:
     	mapnik::context_ptr  ctx_;
     	mapnik::value_integer feature_id_ = 1;
     	mapnik::box2d<double>  box;
+        const std::unique_ptr<mapnik::transcoder> tr_;
 
     	// std::set<std::string> grid;
 	// std::set<int> grid;
